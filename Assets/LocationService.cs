@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 #if PLATFORM_ANDROID
@@ -9,8 +8,8 @@ using UnityEngine.Android;
 
 public class LocationService : MonoBehaviour
 {
-    public Text debugPanel;
-    // Start is called before the first frame update
+    public Text debugPanel; // debug panel on screen, just an early test
+    
     IEnumerator Start()
     {
         debugPanel.text = "testing location...";
@@ -19,12 +18,13 @@ public class LocationService : MonoBehaviour
         debugPanel.text = "This is the unity editor";
         // No permission handling needed in Editor
         #elif PLATFORM_ANDROID
-        if (!Permission.HasUserAuthorizedPermission(Permission.CoarseLocation)) {
-            Permission.RequestUserPermission(Permission.CoarseLocation);
+
+        if (!Permission.HasUserAuthorizedPermission(Permission.FineLocation)) {
+            Permission.RequestUserPermission(Permission.FineLocation);
             debugPanel.text = "Requesting permissions";
         }
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f);
         // First, check if user has location service enabled
         if (!Input.location.isEnabledByUser) {
             // TODO Failure
@@ -44,11 +44,11 @@ public class LocationService : MonoBehaviour
 
         // First, check if user has location service enabled
         if (!Input.location.isEnabledByUser){
+            // TODO, add dialog to ask user to turn on location
             debugPanel.text = "Service not enabled";
             yield break;
         }
             
-
         // Start service before querying location
         // public void Start(float desiredAccuracyInMeters, float updateDistanceInMeters);
         // defaults are 10,10 ... we could try out 5 or less too!
@@ -65,8 +65,8 @@ public class LocationService : MonoBehaviour
         // Service didn't initialize in 20 seconds
         if (maxWait < 1)
         {
-            print("Timed out");
-            debugPanel.text = "Timed Out";
+            print("Location Timed out");
+            debugPanel.text = "Location Timed Out";
             yield break;
         }
 
