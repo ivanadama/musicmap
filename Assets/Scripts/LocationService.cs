@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-#if PLATFORM_ANDROID
+#if UNITY_ANDROID
 using UnityEngine.Android;
+#elif UNITY_IPHONE
+using UnityEngine.iOS;
 #endif
-
 
 public class LocationService : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class LocationService : MonoBehaviour
         #if UNITY_EDITOR
         debugPanel.text = "This is the unity editor";
         // No permission handling needed in Editor
-        #elif PLATFORM_ANDROID
+        #elif UNITY_ANDROID
 
         if (!Permission.HasUserAuthorizedPermission(Permission.FineLocation)) {
             Permission.RequestUserPermission(Permission.FineLocation);
@@ -33,7 +34,7 @@ public class LocationService : MonoBehaviour
             yield break;
         }
 
-        #elif UNITY_IOS
+        #elif UNITY_IPHONE
         if (!Input.location.isEnabledByUser) {
             // TODO Failure
             Debug.LogFormat("IOS and Location not enabled");
