@@ -2,8 +2,8 @@
 
 public static class Tools
 {
-    // radius of the Earth, changing to km to avoid floating point problems
-    private static float radius = 6378.100f; 
+    // radius of the Earth (6378.1km), adjusting decimal to avoid floating point and scaling problems
+    private static float radius = 63.78100f; 
     private static float centerPoint = -1f;
 
     // Equirectangular Projection using the initial position of the device as the center of the map
@@ -22,6 +22,10 @@ public static class Tools
         float y = radius*latitude;
 
         return new Vector2(x,y);
+    }
+
+    public static Vector3 vec2ToVec3(Vector2 v2){
+        return new Vector3(v2.x, 0, v2.y);
     }
 
     // different version test
