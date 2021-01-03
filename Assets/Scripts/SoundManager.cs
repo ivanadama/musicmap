@@ -52,7 +52,7 @@ public class SoundManager : MonoBehaviour
 
             // get cell position and calculate sound clip
             Vector3 startingCell = grid.WorldToCell(sound.transform.position);
-            print(startingCell);
+            // print(startingCell);
 
             // set the cell
             sound.GetComponent<SoundCell>().setStartingCell(startingCell);
