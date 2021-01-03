@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 352817357151578899}
   - component: {fileID: 1204020051583881566}
   - component: {fileID: 4004211501174210460}
+  - component: {fileID: 3382536315465979790}
   m_Layer: 0
   m_Name: Sound
   m_TagString: Untagged
@@ -93,11 +94,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 216c2406fb18edd41be3397afbe5ccba, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -186,8 +187,20 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2975494843343268888}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 950a91c5439b2bb41bd278ddf1267b92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3382536315465979790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2975494843343268888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e4c930826f19384294205b394719618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
