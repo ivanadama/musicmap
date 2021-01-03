@@ -265,8 +265,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d41093d9868514249b094c880738c9a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSounds: 3
-  initialSoundDistance: 10
+  maxSounds: 10
+  initialSoundDistance: 30
   soundPrefab: {fileID: 2975494843343268888, guid: 18c862b6f0b8f8a4a8c5a6e788d1efaa, type: 3}
 --- !u!156049354 &382487203
 Grid:
@@ -276,7 +276,7 @@ Grid:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 382487201}
   m_Enabled: 1
-  m_CellSize: {x: 5, y: 1, z: 5}
+  m_CellSize: {x: 3, y: 1, z: 3}
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0

@@ -25,7 +25,7 @@ public class SoundManager : MonoBehaviour
         if(transform.position == Vector3.zero){
             transform.position = Listener.getPosition();
             initSounds();
-        } 
+        }
 
         // check for cell changes
         Vector3 currentCell = grid.WorldToCell(Listener.getPosition());
@@ -41,16 +41,28 @@ public class SoundManager : MonoBehaviour
     }
 
     void initSounds(){
+        
         for(int i = 0; i < maxSounds; i++) {
             // pick random location around the listener, offset by sound distance
-            Vector3 lPos = Listener.getPosition();
-            Vector2 soundPos = Random.insideUnitCircle.normalized * initialSoundDistance + new Vector2(lPos.x, lPos.z);
-            GameObject s1 = Instantiate(soundPrefab, Tools.vec2ToVec3(soundPos), Quaternion.identity);
+            // Vector3 lPos = Listener.getPosition();
+            // Vector2 soundPos = Random.insideUnitCircle.normalized * initialSoundDistance + new Vector2(lPos.x, lPos.z);
+
+            // using a flattened sphere
+            Vector3 rnd = Random.insideUnitSphere;
+            Vector3 soundPos = new Vector3(rnd.x, 0, rnd.y) * initialSoundDistance + Listener.getPosition();
+
+            GameObject sound = Instantiate(soundPrefab, soundPos, Quaternion.identity);
 
             // for now change the pitch slightly
-            s1.GetComponent<AudioSource>().pitch = Random.Range(0.85f,1.0f);
+            sound.GetComponent<AudioSource>().pitch = Random.Range(0.85f,1.0f);
 
             // in the future each sound should have it's own little sound bank script
+
+            // get cell position and calculate sound clip
+            Vector3 startingCell = grid.WorldToCell(sound.transform.position);
+            print(startingCell);
+
+            sounds.Add(sound);
         }
     }
 }
