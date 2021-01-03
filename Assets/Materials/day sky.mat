@@ -8,13 +8,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: day sky
-<<<<<<< HEAD
-  m_Shader: {fileID: 4800000, guid: 1bd21c9be7f6f4549a0817ebff94e8d9, type: 3}
-  m_ShaderKeywords: _SWITCH2_ON _SWITCH3_ON _SWITCH4_ON
-=======
   m_Shader: {fileID: 4800000, guid: b577cc7e2b66f4521979fd57ca0c8417, type: 3}
   m_ShaderKeywords: _SUNDISK_HIGH_QUALITY _SWITCH2_ON _SWITCH3_ON
->>>>>>> refs/remotes/origin/main
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
