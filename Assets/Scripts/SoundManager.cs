@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    public int maxSounds = 5;
-    public float initialSoundDistance = 10f;
-    public GameObject soundPrefab;
+    [SerializeField] int maxSounds = 5;
+    [SerializeField] float initialSoundDistance = 10f;
+    [SerializeField] GameObject soundPrefab;
 
     Grid grid;
     Vector3 lastCell = Vector3.zero;
@@ -19,28 +19,10 @@ public class SoundManager : MonoBehaviour
         grid = GetComponent<Grid>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        // center the grid and init the sounds once the location is found
-        if(transform.position == Vector3.zero){
-            transform.position = Listener.getPosition();
-            initSounds();
-        }
+    public void initSounds(){
 
-        // check for cell changes
-        Vector3 currentCell = grid.WorldToCell(Listener.getPosition());
-        if(currentCell != lastCell) {
-            // update sounds (also plays sounds)
-            updateSounds(currentCell);
-            // update cell
-            lastCell = currentCell;
-
-            print(lastCell);
-        }
-    }
-
-    void initSounds(){
+        // move to listener position
+        transform.position = Listener.getPosition();
         
         for(int i = 0; i < maxSounds; i++) {
 
@@ -59,6 +41,27 @@ public class SoundManager : MonoBehaviour
 
             // add to list of sounds
             sounds.Add(sound);
+        }
+
+        StartCoroutine(UpdateManager());
+    }
+
+    // Update is called once per frame
+    IEnumerator UpdateManager()
+    {
+        while(true){
+            // check for cell changes
+            Vector3 currentCell = grid.WorldToCell(Listener.getPosition());
+            if(currentCell != lastCell) {
+                // update sounds (also plays sounds)
+                updateSounds(currentCell);
+                // update cell
+                lastCell = currentCell;
+
+                print(lastCell);
+            }
+
+            yield return new WaitForEndOfFrame();
         }
     }
 
