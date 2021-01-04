@@ -4,32 +4,27 @@ using UnityEngine;
 
 public class MoveListener : MonoBehaviour
 {
-    // Start is called before the first frame update
-    Vector2 rot = Vector2.zero;
-    Vector3 pos; 
-	public float rotSpeed = 3f;
-    public float moveSpeed = 5f;
+    [SerializeField] bool manualControl = false;
+    [SerializeField] float rotSpeed = 3f;
+    [SerializeField] float moveSpeed = 5f;
 
-    void Start(){
-        pos = Listener.getPosition(); 
-    }
+    Vector2 rot = Vector2.zero;
+
 
     void Update(){
-        rot.y += Input.GetAxis ("Mouse X");
-		transform.eulerAngles = (Vector2)rot * rotSpeed;
+        if(manualControl){
+            // rotate with mouse
+            rot.y += Input.GetAxis ("Mouse X");
+            transform.eulerAngles = (Vector2)rot * rotSpeed;
+            // tank controls
+            transform.position += transform.forward * Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
+            // update global listener
+            Listener.setPosition(transform.position);
+        } else {
+            transform.position = Listener.getPosition();
 
-        // tank controls
-        transform.position += transform.forward * Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
-
-        // if(pos == Vector3.zero){
-        //     pos = Listener.position;
-        // } else {
-        //     // raw position move
-        //     pos.x += Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
-        //     pos.y += Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed; 
-        // }
-        // transform.position = new Vector3(pos.x, 0, pos.y);
-
-        Listener.setPosition(transform.position);
+            // Orient an object to point northward.
+            transform.eulerAngles = new Vector3(0, Input.compass.trueHeading, 0);
+        }
     }
 }

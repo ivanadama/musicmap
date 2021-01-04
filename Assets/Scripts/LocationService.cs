@@ -1,16 +1,23 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 #if UNITY_ANDROID
 using UnityEngine.Android;
 #elif UNITY_IPHONE
 using UnityEngine.iOS;
 #endif
 
+// TODO: Check again for location again after user enables instead of calling fallback
+
 public class LocationService : MonoBehaviour
 {
-    public Text debugPanel; // debug panel on screen, just an early test
+    [SerializeField] Text debugPanel; // debug panel on screen, just an early test
+    [SerializeField] float gpsCheckInterval = 0.5f;
+    [SerializeField] Vector2 fallbackLocation;
+    [SerializeField] UnityEvent OnNewLocation;
     
+
     IEnumerator Start()
     {
         debugPanel.text = "testing location...";
@@ -31,6 +38,7 @@ public class LocationService : MonoBehaviour
             // TODO Failure
             Debug.LogFormat("Android and Location not enabled");
             debugPanel.text = "Please Turn on Your Location";
+            StartFallbackLocation();
             yield break;
         }
 
@@ -39,6 +47,7 @@ public class LocationService : MonoBehaviour
             // TODO Failure
             Debug.LogFormat("IOS and Location not enabled");
             debugPanel.text = "Please Turn on Your Location";
+            StartFallbackLocation();
             yield break;
         }
         #endif
@@ -47,13 +56,17 @@ public class LocationService : MonoBehaviour
         if (!Input.location.isEnabledByUser){
             // TODO, add dialog to ask user to turn on location
             debugPanel.text = "Please Turn on Your Location";
+            StartFallbackLocation();
             yield break;
         }
+
+        // Enable Compass
+        Input.compass.enabled = true;
             
         // Start service before querying location
         // public void Start(float desiredAccuracyInMeters, float updateDistanceInMeters);
         // defaults are 10,10 ... we could try out 5 or less too!
-        Input.location.Start(); 
+        Input.location.Start(5,5);
 
         // Wait until service initializes
         int maxWait = 20;
@@ -68,6 +81,9 @@ public class LocationService : MonoBehaviour
         {
             print("Location Timed out");
             debugPanel.text = "Location Timed Out";
+
+            StartFallbackLocation();
+
             yield break;
         }
 
@@ -76,14 +92,47 @@ public class LocationService : MonoBehaviour
         {
             print("Unable to determine device location");
             debugPanel.text = "Unable to determine device location";
+
+            StartFallbackLocation();
+
             yield break;
         }
         else
         {
             // Access granted and location value could be retrieved
-            string currentLocation = "Location: " + Input.location.lastData.latitude + " " + Input.location.lastData.longitude + " " + Input.location.lastData.altitude + " " + Input.location.lastData.horizontalAccuracy + " " + Input.location.lastData.timestamp;
-            print(currentLocation);
-            debugPanel.text = currentLocation;
+            StartGPSLocation();
+        }
+    }
+
+    void StartGPSLocation(){
+        
+        string currentLocation = "Location: " + Input.location.lastData.latitude + " " + Input.location.lastData.longitude + " " + Input.location.lastData.altitude + " " + Input.location.lastData.horizontalAccuracy + " " + Input.location.lastData.timestamp;
+        print(currentLocation);
+        debugPanel.text = currentLocation;
+
+        // update Global listener position
+        Vector2 coords = Tools.GPS2Coords(Input.location.lastData.latitude, Input.location.lastData.longitude);
+        Listener.setPosition(coords);
+        OnNewLocation.Invoke();
+
+        // start location update loop
+        StartCoroutine(UpdateLocation());
+    }
+
+    void StartFallbackLocation(){
+        // right now use a fallback
+        debugPanel.text = "fallback location";
+        Listener.setPosition(fallbackLocation);
+        OnNewLocation.Invoke();
+    }
+
+    IEnumerator UpdateLocation(){
+        while(true){
+            Vector2 gps = new Vector2(Input.location.lastData.latitude, Input.location.lastData.longitude);
+            Vector2 coords = Tools.GPS2Coords(gps.x, gps.y);
+            Listener.setPosition(coords);
+            debugPanel.text = gps.x + " " + gps.y + "\n" + coords.x + " " + coords.y  + "\n" + Input.compass.trueHeading;
+            yield return new WaitForSeconds(gpsCheckInterval);
         }
     }
 }
