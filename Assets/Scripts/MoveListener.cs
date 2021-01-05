@@ -9,6 +9,8 @@ public class MoveListener : MonoBehaviour
     [SerializeField] float moveSpeed = 5f;
 
     Vector2 rot = Vector2.zero;
+    float lastHeading = 0;
+    Vector3 lastPosition = Vector3.zero;
 
 
     void Update(){
@@ -21,10 +23,20 @@ public class MoveListener : MonoBehaviour
             // update global listener
             Listener.setPosition(transform.position);
         } else {
-            transform.position = Listener.getPosition();
+            // smoothing out all the visual movements
+
+            Vector3 currentPosition = Listener.getRelativePosition();
+            Vector3 smoothPosition = Vector3.Lerp(lastPosition, currentPosition, 0.05f);
+            transform.position = smoothPosition;
+
+            lastPosition = smoothPosition;
 
             // Orient an object to point northward.
-            transform.eulerAngles = new Vector3(0, Input.compass.trueHeading, 0);
+            float currentHeading = Input.compass.trueHeading;
+            float smoothHeading = Mathf.LerpAngle(lastHeading, currentHeading, 0.05f);
+            transform.eulerAngles = new Vector3(0, smoothHeading, 0);
+
+            lastHeading = smoothHeading;
         }
     }
 }

@@ -66,7 +66,7 @@ public class LocationService : MonoBehaviour
         // Start service before querying location
         // public void Start(float desiredAccuracyInMeters, float updateDistanceInMeters);
         // defaults are 10,10 ... we could try out 5 or less too!
-        Input.location.Start(5,5);
+        Input.location.Start(2,2);
 
         // Wait until service initializes
         int maxWait = 20;
@@ -126,12 +126,20 @@ public class LocationService : MonoBehaviour
         OnNewLocation.Invoke();
     }
 
+    // void Update(){
+    //     Vector3 dir = Input.acceleration;  
+    //     debugPanel.text = dir.x + "\n" + dir.y + "\n" + dir.z;
+    // }
+
     IEnumerator UpdateLocation(){
         while(true){
             Vector2 gps = new Vector2(Input.location.lastData.latitude, Input.location.lastData.longitude);
             Vector2 coords = Tools.GPS2Coords(gps.x, gps.y);
             Listener.setPosition(coords);
-            debugPanel.text = gps.x + " " + gps.y + "\n" + coords.x + " " + coords.y  + "\n" + Input.compass.trueHeading;
+
+            Vector3 pos = Listener.getRelativePosition();
+            // debugPanel.text = gps.x + " " + gps.y + "\n" + coords.x + " " + coords.y  + "\n" + Input.compass.trueHeading;
+            debugPanel.text = pos.x + "\n" + pos.z; //+ "\n" + coords.x + " " + coords.y;
             yield return new WaitForSeconds(gpsCheckInterval);
         }
     }

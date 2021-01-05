@@ -22,13 +22,13 @@ public class SoundManager : MonoBehaviour
     public void initSounds(){
 
         // move to listener position
-        transform.position = Listener.getPosition();
+        transform.position = Listener.getRelativePosition();
         
         for(int i = 0; i < maxSounds; i++) {
 
             // picking random points, later we can use specific GPS positions
             Vector3 rnd = Random.insideUnitSphere;
-            Vector3 soundPos = new Vector3(rnd.x, 0, rnd.y) * initialSoundDistance + Listener.getPosition();
+            Vector3 soundPos = new Vector3(rnd.x, 0, rnd.y) * initialSoundDistance + Listener.getRelativePosition();
 
             GameObject sound = Instantiate(soundPrefab, soundPos, Quaternion.identity);
 
@@ -51,7 +51,7 @@ public class SoundManager : MonoBehaviour
     {
         while(true){
             // check for cell changes
-            Vector3 currentCell = grid.WorldToCell(Listener.getPosition());
+            Vector3 currentCell = grid.WorldToCell(Listener.getRelativePosition());
             if(currentCell != lastCell) {
                 // update sounds (also plays sounds)
                 updateSounds(currentCell);

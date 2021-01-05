@@ -3,7 +3,7 @@
 public static class Tools
 {
     // radius of the Earth (6378.1km), adjusting decimal to avoid floating point and scaling problems
-    private static float radius = 63.78100f; 
+    private static float radius = 6378.100f; 
     private static float centerPoint = -1f;
 
     // Equirectangular Projection using the initial position of the device as the center of the map
