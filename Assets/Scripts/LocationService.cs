@@ -122,7 +122,8 @@ public class LocationService : MonoBehaviour
     void StartFallbackLocation(){
         // right now use a fallback
         debugPanel.text = "fallback location";
-        Listener.setPosition(fallbackLocation);
+        Vector2 coords = Tools.GPS2Coords(fallbackLocation.x, fallbackLocation.y);
+        Listener.setPosition(coords);
         OnNewLocation.Invoke();
     }
 
@@ -137,9 +138,9 @@ public class LocationService : MonoBehaviour
             Vector2 coords = Tools.GPS2Coords(gps.x, gps.y);
             Listener.setPosition(coords);
 
-            Vector3 pos = Listener.getRelativePosition();
+            // Vector3 pos = Listener.getRelativePosition();
             // debugPanel.text = gps.x + " " + gps.y + "\n" + coords.x + " " + coords.y  + "\n" + Input.compass.trueHeading;
-            debugPanel.text = pos.x + "\n" + pos.z; //+ "\n" + coords.x + " " + coords.y;
+            // debugPanel.text = pos.x + "\n" + pos.z; //+ "\n" + coords.x + " " + coords.y;
             yield return new WaitForSeconds(gpsCheckInterval);
         }
     }

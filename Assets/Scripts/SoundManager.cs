@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SoundManager : MonoBehaviour
 {
     [SerializeField] int maxSounds = 5;
     [SerializeField] float initialSoundDistance = 10f;
     [SerializeField] GameObject soundPrefab;
+
+    [SerializeField] UnityEvent OnSoundEvent;
 
     Grid grid;
     Vector3 lastCell = Vector3.zero;
@@ -51,14 +54,18 @@ public class SoundManager : MonoBehaviour
     {
         while(true){
             // check for cell changes
-            Vector3 currentCell = grid.WorldToCell(Listener.getRelativePosition());
+            Vector3 lPos = Listener.getRelativePosition();
+            Vector3 currentCell = grid.WorldToCell(lPos);
             if(currentCell != lastCell) {
                 // update sounds (also plays sounds)
                 updateSounds(currentCell);
                 // update cell
                 lastCell = currentCell;
 
-                print(lastCell);
+                // fire event for audio reactive things
+                OnSoundEvent.Invoke();
+
+                print(lPos + " " + lastCell);
             }
 
             yield return new WaitForEndOfFrame();

@@ -6,7 +6,10 @@ public class Listener : MonoBehaviour
     private static Vector3 position = Vector3.zero;
     private static Vector3 initialPosition = Vector3.zero;
     public static void setPosition(Vector2 pos){
-        if(initialPosition == Vector3.zero) initialPosition = Tools.vec2ToVec3(pos);
+        if(initialPosition == Vector3.zero) {
+            initialPosition = Tools.vec2ToVec3(pos);
+            print("init pos: " + initialPosition);
+        }
         position = Tools.vec2ToVec3(pos);
     }
     public static void setPosition(Vector3 pos){
