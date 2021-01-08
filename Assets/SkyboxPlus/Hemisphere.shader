@@ -11,10 +11,10 @@ Shader "SkyboxPlus/Hemisphere"
 
     #include "UnityCG.cginc"
 
-    half3 _TopColor;
-    half3 _MiddleColor;
-    half3 _BottomColor;
-    half _Exposure;
+    float3 _TopColor;
+    float3 _MiddleColor;
+    float3 _BottomColor;
+    float _Exposure;
 
     struct appdata_t {
         float4 vertex : POSITION;
@@ -33,12 +33,12 @@ Shader "SkyboxPlus/Hemisphere"
         return o;
     }
 
-    half4 frag(v2f i) : SV_Target
+    float4 frag(v2f i) : SV_Target
     {
-        half t1 = max(+i.texcoord.y, 0);
-        half t2 = max(-i.texcoord.y, 0);
-        half3 c = lerp(lerp(_MiddleColor, _TopColor, t1), _BottomColor, t2);
-        return half4(c * _Exposure, 1);
+        float t1 = max(+i.texcoord.y, 0);
+        float t2 = max(-i.texcoord.y, 0);
+        float3 c = lerp(lerp(_MiddleColor, _TopColor, t1), _BottomColor, t2);
+        return float4(c * _Exposure, 1);
     }
 
     ENDCG

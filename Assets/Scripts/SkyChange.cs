@@ -37,7 +37,7 @@ public class SkyChange : MonoBehaviour
             state = "night";
         }  
 
-        state = "day";      
+        // state = "day";      
     }
 
     // Update is called once per frame
