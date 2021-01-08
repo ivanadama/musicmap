@@ -1082,9 +1082,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Created by Ivana Dama\nSpecial thanks to John Brumley for his mentorship
-    and technical contribution, Dr. Victoria Vesna and Dr. Jacquelyn Ardam for the
+    and technical contribution, Dr. Victoria Vesna and Dr. Jacquelyn Ardam for their
     research advisory & Clinton Van Arnam for his love and support. \n\nAudioMap
-    is made possible by UCLA Undergraduate Research Scholars Program\n"
+    is made possible by the UCLA Undergraduate Research Scholars Program\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1368,7 +1368,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1377791523}
         m_TargetAssemblyTypeName: ScreenManager, Assembly-CSharp
-        m_MethodName: CloseCurrent
+        m_MethodName: OpenLastPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1868,7 +1868,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Headphones or external speakers recommennded
+  m_text: Headphones or external speakers recommended
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2384,7 +2384,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1377791523}
         m_TargetAssemblyTypeName: ScreenManager, Assembly-CSharp
-        m_MethodName: CloseCurrent
+        m_MethodName: OpenLastPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2568,7 +2568,7 @@ MonoBehaviour:
         m_MethodName: OpenPanel
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 1469895968}
+          m_ObjectArgument: {fileID: 1081702335}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Animator, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -2905,9 +2905,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'AudioMap is committed protecting and respecting your privacy. While this
-    app uses location data to generate sound, your data is not collected or stored
-    by us. '
+  m_text: 'AudioMap is committed to protecting and respecting your privacy. While
+    this app uses location data to generate sound, your data is not collected or
+    stored by us. '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4165,11 +4165,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1377791523}
         m_TargetAssemblyTypeName: ScreenManager, Assembly-CSharp
-        m_MethodName: CloseCurrent
-        m_Mode: 1
+        m_MethodName: OpenPanel
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1469895968}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Animator, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4530,12 +4530,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1125, y: 2436}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
